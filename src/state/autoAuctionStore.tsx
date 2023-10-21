@@ -6,10 +6,11 @@ import * as TO from 'fp-ts/TaskOption'
 import * as A from 'fp-ts/Array'
 import { constVoid, identity, pipe } from 'fp-ts/lib/function'
 
-import { 
-    IExternallyMintable,
-    IExternallyMintable__factory,
-    IParallelAutoAuction, IParallelAutoAuction__factory 
+import {
+	IExternallyMintable,
+	IExternallyMintable__factory,
+	IParallelAutoAuction,
+	IParallelAutoAuction__factory
 } from '../types'
 
 import { useUserStore } from './userStore'
@@ -26,30 +27,30 @@ export const vipIds = process.env.REACT_APP_VIP_IDS!.split(',').map(Number)
 // this pattern of loading the whole immutable system state, because
 // having lots of silly consts like `tokenName` only make the store
 // uglier.
-export const auctionsAtTheSameTime = 10
+export const auctionsAtTheSameTime = 8
 export const maxSupply = 180
 
 // FIXME Those types shouln't be hardcoded.
 export type WonEvent = {
-    readonly id: bigint,
-    readonly winner: string,
-    readonly price: bigint 
+	readonly id: bigint
+	readonly winner: string
+	readonly price: bigint
 }
 
 export type BidEvent = {
-    readonly id: bigint,
-    readonly bidder: string,
-    readonly price: bigint 
+	readonly id: bigint
+	readonly bidder: string
+	readonly price: bigint
 }
 
 type ParallelAuctionData = {
-    readonly auctionAddress: string,
-    readonly auctionContract: IParallelAutoAuction,
-    readonly auctionConfig: AuctionConfigStruct,
-    readonly auctionedTokenAddress: string,
-    readonly auctionedToken: IExternallyMintable,
-    readonly tokenName: string,
-    readonly tokenImagesUri: string
+	readonly auctionAddress: string
+	readonly auctionContract: IParallelAutoAuction
+	readonly auctionConfig: AuctionConfigStruct
+	readonly auctionedTokenAddress: string
+	readonly auctionedToken: IExternallyMintable
+	readonly tokenName: string
+	readonly tokenImagesUri: string
 }
 
 /**
@@ -59,442 +60,437 @@ type ParallelAuctionData = {
  * `./userStore.tsx`).
  */
 type ParallelAuctionStoreState = {
-    /**
-     * @returns General auction instantiation data, see
-     * `PaallelAuctionData` typedef for more.
-     * @notice All `ParallelAuctionData` properites are binded by
-     * `O.Option`. Ie, if any of the properties is set, that means
-     * all properties must be set.
-     */
-    auctionData: O.Option<ParallelAuctionData>,
-    
-    currentLineIndex: number,
+	/**
+	 * @returns General auction instantiation data, see
+	 * `PaallelAuctionData` typedef for more.
+	 * @notice All `ParallelAuctionData` properites are binded by
+	 * `O.Option`. Ie, if any of the properties is set, that means
+	 * all properties must be set.
+	 */
+	auctionData: O.Option<ParallelAuctionData>
 
-    lines: O.Option<O.Option<LineStateStruct>[]>,
-    
-    /* ------------- LINE MANIPULATION FUNCTIONS ------------- */
+	currentLineIndex: number
 
-    /**
-     * @returns Some line at `lines[index]`.
-     * None iff `index` is not valid.
-     */
-    getLine: (index: number) => O.Option<LineStateStruct>,
+	lines: O.Option<O.Option<LineStateStruct>[]>
 
-    /**
-     * @returns The line for `id`.
-     * None if its a wrong id.
-     */
-    getLineFromId: (id: number) => O.Option<LineStateStruct>,
+	/* ------------- LINE MANIPULATION FUNCTIONS ------------- */
 
-    /**
-     * @returns The selected line based on `currentLineIndex`.
-     */
-    getCurrentSelectedLine: () => O.Option<LineStateStruct>,
-    
-    /**
-     * @dev Sets `currentLineIndex := index` iff `index` is a valid index.
-     */
-    setCurrentSelectedIndex: (index: number) => void,
-    
-    // TODO refactor so it gets an index.
-    /**
-     * @dev Updates in `lines` the inputed `line`.
-     * @returns A new updated line.
-     */
-    updateLine: (lineIndexToUpdate: number) => Promise<O.Option<LineStateStruct>>,
-    
-    /* --------------- CONTRACT INITIALIZATION --------------- */
-    setAuctionData: (
-        auctionAddress: string[42], 
-        auctionedTokenName: string, 
-        tokenImagesUri: string
-    ) => void,
-    
-    /* ------------- GENERAL CONTRACT QUERIES ------------- */
+	/**
+	 * @returns Some line at `lines[index]`.
+	 * None iff `index` is not valid.
+	 */
+	getLine: (index: number) => O.Option<LineStateStruct>
 
-    getImagesUri: () => O.Option<string>,
+	/**
+	 * @returns The line for `id`.
+	 * None if its a wrong id.
+	 */
+	getLineFromId: (id: number) => O.Option<LineStateStruct>
 
-    getImage: (forLineIndex: number) => string,
+	/**
+	 * @returns The selected line based on `currentLineIndex`.
+	 */
+	getCurrentSelectedLine: () => O.Option<LineStateStruct>
 
-    getImageForId: (id: BigNumberish) => string,
+	/**
+	 * @dev Sets `currentLineIndex := index` iff `index` is a valid index.
+	 */
+	setCurrentSelectedIndex: (index: number) => void
 
-    getCollectionName: () => O.Option<string>,
+	// TODO refactor so it gets an index.
+	/**
+	 * @dev Updates in `lines` the inputed `line`.
+	 * @returns A new updated line.
+	 */
+	updateLine: (lineIndexToUpdate: number) => Promise<O.Option<LineStateStruct>>
 
-    getFormattedTokenName: (forLineIndex: number) => string,
+	/* --------------- CONTRACT INITIALIZATION --------------- */
+	setAuctionData: (auctionAddress: string[42], auctionedTokenName: string, tokenImagesUri: string) => void
 
-    getFormattedTokenNameFoId: (id: BigNumberish) => string,
+	/* ------------- GENERAL CONTRACT QUERIES ------------- */
 
-    getAuctionConfig: () => O.Option<AuctionConfigStruct>,
-    
-    getEndTime: (forLineIndex: number) => O.Option<number>,
+	getImagesUri: () => O.Option<string>
 
-    getFormattedCurrentBid: (forLineIndex: number) => string,
+	getImage: (forLineIndex: number) => string
 
-    getFormattedCurrentWinner: (forLineIndex: number) => string,
+	getImageForId: (id: BigNumberish) => string
 
-    getCurrentlyAuctionedIds: () => Promise<O.Option<number[]>>,
+	getCollectionName: () => O.Option<string>
 
-    createBid: (value: number) => Promise<O.Option<ethers.ContractTransactionResponse>>,
+	getFormattedTokenName: (forLineIndex: number) => string
 
-    /**
-     * @returns If the current user is vip.
-     */
-    getIsVip: () => Promise<boolean>,
+	getFormattedTokenNameFoId: (id: BigNumberish) => string
 
-    /**
-     * @returns If the current selected line is a vip id.
-     */
-    getCurrentLineIsVipId: () => boolean,
+	getAuctionConfig: () => O.Option<AuctionConfigStruct>
 
-    /**
-     * @returns If the 
-     */
-    getLineIsVip: (line: O.Option<LineStateStruct>) => boolean,
+	getEndTime: (forLineIndex: number) => O.Option<number>
 
-    getContractWonEventFor: (id: BigNumberish) => Promise<O.Option<WonEvent>>
+	getFormattedCurrentBid: (forLineIndex: number) => string
 
-    getContractBidEventFor: (id: BigNumberish) => Promise<O.Option<BidEvent[]>>
-    
-    /* --------------- CALLBACK FUNCTIONS --------------- */
-    /**
-     * @dev Event function that should only trigger if an event
-     * happens over `biddedId`.
-     */
-    _onBidEventDo: (biddedId: bigint, bidder: string, value: BigNumberish) => void,
+	getFormattedCurrentWinner: (forLineIndex: number) => string
 
-    /**
-     * @dev Callback function that will restart a line data on its
-     * timer end.
-     */
-    _onLineTimerEndDo: (index: number) => void
+	getCurrentlyAuctionedIds: () => Promise<O.Option<number[]>>
 
+	createBid: (value: number) => Promise<O.Option<ethers.ContractTransactionResponse>>
+
+	/**
+	 * @returns If the current user is vip.
+	 */
+	getIsVip: () => Promise<boolean>
+
+	/**
+	 * @returns If the current selected line is a vip id.
+	 */
+	getCurrentLineIsVipId: () => boolean
+
+	/**
+	 * @returns If the
+	 */
+	getLineIsVip: (line: O.Option<LineStateStruct>) => boolean
+
+	getContractWonEventFor: (id: BigNumberish) => Promise<O.Option<WonEvent>>
+
+	getContractBidEventFor: (id: BigNumberish) => Promise<O.Option<BidEvent[]>>
+
+	/* --------------- CALLBACK FUNCTIONS --------------- */
+	/**
+	 * @dev Event function that should only trigger if an event
+	 * happens over `biddedId`.
+	 */
+	_onBidEventDo: (biddedId: bigint, bidder: string, value: BigNumberish) => void
+
+	/**
+	 * @dev Callback function that will restart a line data on its
+	 * timer end.
+	 */
+	_onLineTimerEndDo: (index: number) => void
 }
 
-export const useParallelAuctionState = create<ParallelAuctionStoreState>((set, get) => {return {
+export const useParallelAuctionState = create<ParallelAuctionStoreState>((set, get) => {
+	return {
+		auctionData: O.none,
+		currentLineIndex: 0,
+		lines: O.none,
 
-    auctionData: O.none,
-    currentLineIndex: 0,
-    lines: O.none,
+		getLine: (index) =>
+			pipe(
+				get().lines,
+				O.flatMap((lines) => O.fromNullable(lines[index])),
+				O.flatten
+			),
 
-    getLine: index => pipe(
-        get().lines,
-        O.flatMap(lines => O.fromNullable(lines[index])),
-        O.flatten
-    ),
+		getLineFromId: (id) => get().getLine((id - 1) % 10),
 
-    getLineFromId: id => get().getLine((id - 1) % 10),
+		getCurrentSelectedLine: () => get().getLine(get().currentLineIndex),
 
-    getCurrentSelectedLine: () => get().getLine(get().currentLineIndex),
+		setCurrentSelectedIndex: (index: number) => {
+			if (O.isSome(get().getLine(index))) set({ currentLineIndex: index })
+		},
 
-    setCurrentSelectedIndex: (index: number) => {
-        if (O.isSome(get().getLine(index))) set({ currentLineIndex: index })
-    },
+		setAuctionData: async (auctionAddress: string[42], auctionedTokenName: string, tokenImagesUri: string) => {
+			// This condition ensures `auctionData` immutability since
+			// this function is quite expensive to evaluate. Note that by
+			// design, the condition will only be true if all `auctionData`
+			// fields are correctly set, ie, theres no need to reevaluate
+			// this function.
+			if (O.isSome(get().auctionData) && O.isSome(get().lines)) return
 
+			if (!ethers.isAddress(auctionAddress)) return
 
-    setAuctionData: async (
-        auctionAddress: string[42], 
-        auctionedTokenName: string, 
-        tokenImagesUri: string
-    ) => {
+			const bestProvider = useUserStore.getState().getBestProvider()
 
-        // This condition ensures `auctionData` immutability since
-        // this function is quite expensive to evaluate. Note that by 
-        // design, the condition will only be true if all `auctionData`
-        // fields are correctly set, ie, theres no need to reevaluate
-        // this function.
-        if (O.isSome(get().auctionData) && O.isSome(get().lines)) return
+			const auctionContract = pipe(
+				bestProvider,
+				O.map((prov) => IParallelAutoAuction__factory.connect(auctionAddress, prov))
+			)
 
-        if (!ethers.isAddress(auctionAddress)) return
-        
-        const bestProvider = useUserStore.getState().getBestProvider()
-        
-        const auctionContract = pipe(
-            bestProvider,
-            O.map(prov => IParallelAutoAuction__factory.connect(auctionAddress, prov))
-        )
+			const auctionConfig = await pipe(
+				auctionContract,
+				TO.fromOption,
+				TO2.flatTry((auction) => auction.auctionConfig())
+			)()
 
-        const auctionConfig = await pipe(
-            auctionContract,
-            TO.fromOption,
-            TO2.flatTry(auction => auction.auctionConfig())
-        )()
+			const auctionedTokenAddr = await pipe(
+				TO.fromOption(auctionContract),
+				TO2.flatTry((auction) => auction.getAuctionedToken())
+			)()
 
+			const auctionedToken = pipe(
+				O.Do,
+				O.bind('provider', () => bestProvider),
+				O.bind('tokenAddress', () => auctionedTokenAddr),
+				O.map(({ tokenAddress, provider }) => IExternallyMintable__factory.connect(tokenAddress, provider))
+			)
 
-        const auctionedTokenAddr = await pipe(
-            TO.fromOption(auctionContract),
-            TO2.flatTry(auction => auction.getAuctionedToken())
-        )()
+			// Build the final data by unwrapping all Options.
+			const data: O.Option<ParallelAuctionData> = pipe(
+				O.Do,
+				O.bind('auctionContract', () => auctionContract),
+				O.bind('auctionConfig', () => auctionConfig),
+				O.bind('auctionedTokenAddress', () => auctionedTokenAddr),
+				O.bind('auctionedToken', () => auctionedToken),
+				O.bind('tokenName', () => O.of(auctionedTokenName)),
+				O.bind('tokenImagesUri', () => O.of(tokenImagesUri)),
+				O.map((data) => ({ ...data, auctionAddress }))
+			)
 
-        const auctionedToken = pipe(
-            O.Do,
-            O.bind('provider', () => bestProvider),
-            O.bind('tokenAddress', () => auctionedTokenAddr),
-            O.map(({ tokenAddress, provider }) => 
-                IExternallyMintable__factory.connect(tokenAddress, provider)
-            )
-        )
+			if (O.isNone(data)) return
 
-        // Build the final data by unwrapping all Options.
-        const data: O.Option<ParallelAuctionData> = pipe(
-            O.Do,
-            O.bind('auctionContract', () => auctionContract),
-            O.bind('auctionConfig', () => auctionConfig),
-            O.bind('auctionedTokenAddress', () => auctionedTokenAddr),
-            O.bind('auctionedToken', () => auctionedToken),
-            O.bind('tokenName', () => O.of(auctionedTokenName)),
-            O.bind('tokenImagesUri', () => O.of(tokenImagesUri)),
-            O.map((data) => ({...data, auctionAddress}))
-        )
-        
-        if (O.isNone(data)) return
-        
-        // Once updated the auction data we get all the lines state.
-        const maxSupply = await pipe(
-            TO.fromOption(auctionedToken),
-            TO2.flatTry(token => token.maxSupply())
-        )()
+			// Once updated the auction data we get all the lines state.
+			const maxSupply = await pipe(
+				TO.fromOption(auctionedToken),
+				TO2.flatTry((token) => token.maxSupply())
+			)()
 
-        const lineOpts = await pipe(
-            O.Do,
-            O.bind('auction', () => auctionContract),
-            O.bind('maxSupply', () => maxSupply),
-            TO.fromOption,
-            TO.bind('lines', ({ auction }) => TO.tryCatch(() => auction.lineStates())),
-            TO.map(({ lines, maxSupply }) => pipe(
-                lines,
-                A.map(O.fromPredicate(line => (maxSupply + BigInt(11)) >= line.head)) // UGLY HOTFIX FIXME
-            )),
-        )()
-        
-        if (O.isNone(lineOpts)) return
+			const lineOpts = await pipe(
+				O.Do,
+				O.bind('auction', () => auctionContract),
+				O.bind('maxSupply', () => maxSupply),
+				TO.fromOption,
+				TO.bind('lines', ({ auction }) => TO.tryCatch(() => auction.lineStates())),
+				TO.map(({ lines, maxSupply }) =>
+					pipe(
+						lines,
+						A.map(O.fromPredicate((line) => maxSupply + BigInt(11) >= line.head)) // UGLY HOTFIX FIXME
+					)
+				)
+			)()
 
-        set({ auctionData: data })
-        set({ lines: lineOpts })
-        
-        // Finally, we specify all events that will manipulate `lines`.
-        pipe(
-            auctionContract,
-            O.map(c => c.addListener('Bid', get()._onBidEventDo))
-        )
-        
-        // Setting callback function for timers.
-        useLineTimersStore.getState().setCallbackIfDoesntExist(        
-            get()._onLineTimerEndDo 
-        )
+			if (O.isNone(lineOpts)) return
 
-        // Setting all timers.
-        pipe(
-            get().lines,
-            O.map(A.mapWithIndex((i,l) => pipe(
-                l,
-                O.map(l => useLineTimersStore.getState().clearAndSetTimerFor(i,l))
-            )))
-        )
-    },
+			set({ auctionData: data })
+			set({ lines: lineOpts })
 
-    updateLine: async (lineIndexToUpdate) => {
+			// Finally, we specify all events that will manipulate `lines`.
+			pipe(
+				auctionContract,
+				O.map((c) => c.addListener('Bid', get()._onBidEventDo))
+			)
 
-        const lineToUpdateOpt = get().getLine(lineIndexToUpdate)
-        const allLinesOpt = get().lines
+			// Setting callback function for timers.
+			useLineTimersStore.getState().setCallbackIfDoesntExist(get()._onLineTimerEndDo)
 
-        if (O.isNone(lineToUpdateOpt) || O.isNone(allLinesOpt)) return O.none
+			// Setting all timers.
+			pipe(
+				get().lines,
+				O.map(
+					A.mapWithIndex((i, l) =>
+						pipe(
+							l,
+							O.map((l) => useLineTimersStore.getState().clearAndSetTimerFor(i, l))
+						)
+					)
+				)
+			)
+		},
 
-        const lineToUpdate = lineToUpdateOpt.value
-        const allLines = allLinesOpt.value
+		updateLine: async (lineIndexToUpdate) => {
+			const lineToUpdateOpt = get().getLine(lineIndexToUpdate)
+			const allLinesOpt = get().lines
 
-        const newLine = await pipe(
-            get().auctionData,
-            TO.fromOption,
-            TO2.flatTry(data => 
-                data.auctionContract.lineState(Number(lineToUpdate.head))
-            ),
-        )()
-    
-        // NOTE Index could be out of bounds.
-        const indexToMutate = allLines.findIndex(pipe(
-            O.exists(line => line.head === lineToUpdate.head)
-        ))
+			if (O.isNone(lineToUpdateOpt) || O.isNone(allLinesOpt)) return O.none
 
-        if (allLines[indexToMutate] !== undefined && O.isSome(newLine)) 
-            allLines[indexToMutate] = newLine
-        else return O.none
+			const lineToUpdate = lineToUpdateOpt.value
+			const allLines = allLinesOpt.value
 
-        set({ lines: O.some(allLines) }) 
-        
-        useLineTimersStore.getState().clearAndSetTimerFor(
-            lineIndexToUpdate, newLine.value
-        )
-        
-        return newLine
-    },
-    
+			const newLine = await pipe(
+				get().auctionData,
+				TO.fromOption,
+				TO2.flatTry((data) => data.auctionContract.lineState(Number(lineToUpdate.head)))
+			)()
 
-    getImagesUri: () => pipe(
-        get().auctionData,
-        O.map(d => d.tokenImagesUri)
-    ),
+			// NOTE Index could be out of bounds.
+			const indexToMutate = allLines.findIndex(pipe(O.exists((line) => line.head === lineToUpdate.head)))
 
-    getImage: lineIndex => pipe(
-        get().getLine(lineIndex),
-        O.map(l => l.head),
-        O.map(get().getImageForId),
-        O.getOrElse(() => '/404.png')
-    ),
+			if (allLines[indexToMutate] !== undefined && O.isSome(newLine)) allLines[indexToMutate] = newLine
+			else return O.none
 
-    getImageForId: id => pipe(
-        get().getImagesUri(),
-        O.map(uri => `${uri}/${id}.png`),
-        O.getOrElse(() => '/404.png')
-    ),
-    
-    getCollectionName: () => pipe(
-        get().auctionData,
-        O.map(data => data.tokenName)
-    ),
+			set({ lines: O.some(allLines) })
 
-    getFormattedTokenName: lineIndex => pipe(
-        get().getLine(lineIndex),
-        O.map(l => l.head),
-        O.map(get().getFormattedTokenNameFoId),
-        O.getOrElse(PROVIDER_DOWN_MESSAGE)
-    ),
+			useLineTimersStore.getState().clearAndSetTimerFor(lineIndexToUpdate, newLine.value)
 
-    getFormattedTokenNameFoId: id => pipe(
-        get().getCollectionName(),
-        O.map(name => `${name} #${id}`),
-        O.getOrElse(PROVIDER_DOWN_MESSAGE)
-    ),
+			return newLine
+		},
 
-    getAuctionConfig: () => pipe(
-        get().auctionData,
-        O.map(data => data.auctionConfig)
-    ),
+		getImagesUri: () =>
+			pipe(
+				get().auctionData,
+				O.map((d) => d.tokenImagesUri)
+			),
 
-    getEndTime: (forLineIndex: number) => pipe(
-        get().getLine(forLineIndex),
-        O.flatMap(line => O.tryCatch(() => Number(line.endTime)))
-    ),
+		getImage: (lineIndex) =>
+			pipe(
+				get().getLine(lineIndex),
+				O.map((l) => l.head),
+				O.map(get().getImageForId),
+				O.getOrElse(() => '/404.png')
+			),
 
-    getFormattedCurrentBid: (forLineIndex: number) => pipe(
-        get().getLine(forLineIndex),
-        O.map(line => `Ξ${fromWei(line.currentPrice)}`),
-        O.getOrElse(PROVIDER_DOWN_MESSAGE)
-    ),
+		getImageForId: (id) =>
+			pipe(
+				get().getImagesUri(),
+				O.map((uri) => `${uri}/${id}.png`),
+				O.getOrElse(() => '/404.png')
+			),
 
-    getFormattedCurrentWinner: (forLineIndex: number) => pipe(
-        get().getLine(forLineIndex),
-        O.flatMap(line => formatAddr(line.currentWinner.toString(), 11)),
-        O.getOrElse(PROVIDER_DOWN_MESSAGE)
-    ),
+		getCollectionName: () =>
+			pipe(
+				get().auctionData,
+				O.map((data) => data.tokenName)
+			),
 
-    getCurrentlyAuctionedIds: async () => await pipe(
-        get().auctionData,
-        O.map(d => d.auctionContract),
-        TO.fromOption,
-        TO2.flatTry(x => x.getIdsToAuction()),
-        TO.map(A.map(Number))
-    )(),
-    
-    // TODO This solution is ugly af, can't I use the user wallet for
-    // signing and querying at the same time?
-    createBid: async (value: number) => await pipe(
-        O.Do,
-        O.bind('signer', () => useUserStore.getState().userSigner),
-        O.bind('data', () => get().auctionData),
-        O.bind('auction', ({ data }) => O.of(data.auctionContract)),
-        O.bind('line', get().getCurrentSelectedLine),
-        TO.fromOption,
-        TO.flatMap(({ auction, line, signer }) => TO.tryCatch(() => 
-            (auction.connect(signer) as typeof auction)
-                .createBid(line.head, { value: toWei(value)})
-        ))
-    )(),
+		getFormattedTokenName: (lineIndex) =>
+			pipe(
+				get().getLine(lineIndex),
+				O.map((l) => l.head),
+				O.map(get().getFormattedTokenNameFoId),
+				O.getOrElse(PROVIDER_DOWN_MESSAGE)
+			),
 
-    getIsVip: async () => await pipe(
-        O.Do,
-        O.bind('signer', () => useUserStore.getState().userSigner),
-        O.bind('signerAddress', () => useUserStore.getState().userAddress),
-        O.bind('data', () => get().auctionData),
-        O.bind('auctionAddr', ({ data }) => O.of(data.auctionAddress)),
-        O.bind('newAbi', () => O.of(['function userIsVip(address user) public view returns (bool)'])),
-        O.bind('vipChecker', ({ auctionAddr, newAbi, signer }) => 
-            O.of(new ethers.Contract(auctionAddr, newAbi, signer))
-        ),
-        TO.fromOption,
-        TO.flatMap(({ vipChecker, signerAddress }) => TO.tryCatch(() =>
-            vipChecker.userIsVip(signerAddress)
-        )),
-        TO.map(x => x as boolean),
-    )().then(O.exists(identity)),
+		getFormattedTokenNameFoId: (id) =>
+			pipe(
+				get().getCollectionName(),
+				O.map((name) => `${name} #${id}`),
+				O.getOrElse(PROVIDER_DOWN_MESSAGE)
+			),
 
-    getCurrentLineIsVipId: () => pipe(
-        get().getCurrentSelectedLine(),
-        get().getLineIsVip,
-    ),
+		getAuctionConfig: () =>
+			pipe(
+				get().auctionData,
+				O.map((data) => data.auctionConfig)
+			),
 
-    getLineIsVip: l => pipe(
-        l,
-        O.map(l => l.head),
-        O.exists(i => vipIds.includes(Number(i)))
-    ),
+		getEndTime: (forLineIndex: number) =>
+			pipe(
+				get().getLine(forLineIndex),
+				O.flatMap((line) => O.tryCatch(() => Number(line.endTime)))
+			),
 
-    getContractWonEventFor: async (id) => {
-        const auctionDataOpt = get().auctionData
-        if (O.isNone(auctionDataOpt)) return O.none
-        const auctionData = auctionDataOpt.value
+		getFormattedCurrentBid: (forLineIndex: number) =>
+			pipe(
+				get().getLine(forLineIndex),
+				O.map((line) => `Ξ${fromWei(line.currentPrice)}`),
+				O.getOrElse(PROVIDER_DOWN_MESSAGE)
+			),
 
-        const winsFilter = auctionData.auctionContract.filters.Won(id)
-        
-        const rawEvents = await auctionData.auctionContract.queryFilter(winsFilter)
+		getFormattedCurrentWinner: (forLineIndex: number) =>
+			pipe(
+				get().getLine(forLineIndex),
+				O.flatMap((line) => formatAddr(line.currentWinner.toString(), 11)),
+				O.getOrElse(PROVIDER_DOWN_MESSAGE)
+			),
 
-        return pipe(
-            rawEvents[0],
-            e => O.fromNullable(({
-                id: e.args[0], winner: e.args[1], price: e.args[2]
-            }))
-        )
-    },
+		getCurrentlyAuctionedIds: async () =>
+			await pipe(
+				get().auctionData,
+				O.map((d) => d.auctionContract),
+				TO.fromOption,
+				TO2.flatTry((x) => x.getIdsToAuction()),
+				TO.map(A.map(Number))
+			)(),
 
-    getContractBidEventFor: async (id) => {
+		// TODO This solution is ugly af, can't I use the user wallet for
+		// signing and querying at the same time?
+		createBid: async (value: number) =>
+			await pipe(
+				O.Do,
+				O.bind('signer', () => useUserStore.getState().userSigner),
+				O.bind('data', () => get().auctionData),
+				O.bind('auction', ({ data }) => O.of(data.auctionContract)),
+				O.bind('line', get().getCurrentSelectedLine),
+				TO.fromOption,
+				TO.flatMap(({ auction, line, signer }) =>
+					TO.tryCatch(() =>
+						(auction.connect(signer) as typeof auction).createBid(line.head, { value: toWei(value) })
+					)
+				)
+			)(),
 
-        const auctionDataOpt = get().auctionData
-        if (O.isNone(auctionDataOpt)) return O.none
-        const auctionData = auctionDataOpt.value
+		getIsVip: async () =>
+			await pipe(
+				O.Do,
+				O.bind('signer', () => useUserStore.getState().userSigner),
+				O.bind('signerAddress', () => useUserStore.getState().userAddress),
+				O.bind('data', () => get().auctionData),
+				O.bind('auctionAddr', ({ data }) => O.of(data.auctionAddress)),
+				O.bind('newAbi', () => O.of(['function userIsVip(address user) public view returns (bool)'])),
+				O.bind('vipChecker', ({ auctionAddr, newAbi, signer }) =>
+					O.of(new ethers.Contract(auctionAddr, newAbi, signer))
+				),
+				TO.fromOption,
+				TO.flatMap(({ vipChecker, signerAddress }) => TO.tryCatch(() => vipChecker.userIsVip(signerAddress))),
+				TO.map((x) => x as boolean)
+			)().then(O.exists(identity)),
 
-        const bidsFilter = auctionData.auctionContract.filters.Bid(id)
-        const rawEvents = await auctionData.auctionContract.queryFilter(bidsFilter)
+		getCurrentLineIsVipId: () => pipe(get().getCurrentSelectedLine(), get().getLineIsVip),
 
-        const eventsOpts = pipe(
-            rawEvents,
-            A.map(e => O.fromNullable(({
-                id: e.args[0], bidder: e.args[1], price: e.args[2]
-            }))),
-        )
-        
-        return A.every(O.isSome)(eventsOpts)
-            ? O.some(eventsOpts.map(e => e.value))
-            : O.none
+		getLineIsVip: (l) =>
+			pipe(
+				l,
+				O.map((l) => l.head),
+				O.exists((i) => vipIds.includes(Number(i)))
+			),
 
-    },
+		getContractWonEventFor: async (id) => {
+			const auctionDataOpt = get().auctionData
+			if (O.isNone(auctionDataOpt)) return O.none
+			const auctionData = auctionDataOpt.value
 
+			const winsFilter = auctionData.auctionContract.filters.Won(id)
 
-    /* --------------- CALLBACK FUNCTIONS --------------- */
-    _onBidEventDo: (biddedId: bigint, bidder: string, value: BigNumberish) => pipe(
-        get().getAuctionConfig(),
-        O.map(auctionConfig => auctionConfig.lines),
-        O.map(lines => (Number(biddedId) - 1) % Number(lines)),
-        O.map(lineIndex => get().updateLine(lineIndex).then(() => {
-            if (lineIndex === get().currentLineIndex)
-                reRenderSidePanelObserver.getState().notifyObservers()
-        })),
-        constVoid
-    ),
+			const rawEvents = await auctionData.auctionContract.queryFilter(winsFilter)
 
-    _onLineTimerEndDo: async (index: number) => {
-        await get().updateLine(index)
-        if (index === get().currentLineIndex)
-            reRenderSidePanelObserver.getState().notifyObservers()
-    }
+			return pipe(rawEvents[0], (e) =>
+				O.fromNullable({
+					id: e.args[0],
+					winner: e.args[1],
+					price: e.args[2]
+				})
+			)
+		},
 
-}})
+		getContractBidEventFor: async (id) => {
+			const auctionDataOpt = get().auctionData
+			if (O.isNone(auctionDataOpt)) return O.none
+			const auctionData = auctionDataOpt.value
 
+			const bidsFilter = auctionData.auctionContract.filters.Bid(id)
+			const rawEvents = await auctionData.auctionContract.queryFilter(bidsFilter)
+
+			const eventsOpts = pipe(
+				rawEvents,
+				A.map((e) =>
+					O.fromNullable({
+						id: e.args[0],
+						bidder: e.args[1],
+						price: e.args[2]
+					})
+				)
+			)
+
+			return A.every(O.isSome)(eventsOpts) ? O.some(eventsOpts.map((e) => e.value)) : O.none
+		},
+
+		/* --------------- CALLBACK FUNCTIONS --------------- */
+		_onBidEventDo: (biddedId: bigint, bidder: string, value: BigNumberish) =>
+			pipe(
+				get().getAuctionConfig(),
+				O.map((auctionConfig) => auctionConfig.lines),
+				O.map((lines) => (Number(biddedId) - 1) % Number(lines)),
+				O.map((lineIndex) =>
+					get()
+						.updateLine(lineIndex)
+						.then(() => {
+							if (lineIndex === get().currentLineIndex)
+								reRenderSidePanelObserver.getState().notifyObservers()
+						})
+				),
+				constVoid
+			),
+
+		_onLineTimerEndDo: async (index: number) => {
+			await get().updateLine(index)
+			if (index === get().currentLineIndex) reRenderSidePanelObserver.getState().notifyObservers()
+		}
+	}
+})

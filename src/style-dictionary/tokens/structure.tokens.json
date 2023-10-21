@@ -1,0 +1,18 @@
+{
+	"page": {
+		"pad": { "value": "{root.structure.page.pad}" },
+		"border-clr": { "value": "{root.structure.page.border.color}" },
+		"border": { "value": "var(--bdw) solid {page.border-clr}" }
+	},
+	"section": {
+		"pad": { "value": "{root.structure.section.pad}" },
+		"border-clr": { "value": "{root.structure.section.border.color}" },
+		"border": { "value": "var(--bdw) solid {section.border-clr}" }
+	},
+	"nav": {
+		"height": { "value": "{root.structure.nav.height}" }
+	},
+	"shell": {
+		"background": { "value": "{root.structure.shell.background}" }
+	}
+}

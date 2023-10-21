@@ -1,20 +1,20 @@
 /* HOST ----------------------------------- */
-#place-bid-button-container {
-	height: var(--sp-9);
-	padding: var(--gap-i);
+.host {
+	/* height: var(--sp-9); */
+	/* padding: var(--gap-i);
 	border: 1px solid var(--clr-accent-secondary);
 	border-radius: var(--sp-12);
-	background-color: var(--clr-accent-secondary);
+	background-color: var(--clr-accent-secondary); */
 }
 
-@media screen and (min-width: 1921px) {
-	#place-bid-button-container {
+/* @media screen and (min-width: 1921px) {
+	.host {
 		height: var(--sp-12);
 	}
-}
+} */
 
 /* BUTTON --------------------------------- */
-#place-bid-button {
+/* #place-bid-button {
 	width: 100%;
 	height: 100%;
 	display: flex;
@@ -25,22 +25,7 @@
 	box-shadow: var(--ev-neu-1-accent-secondary);
 	transition: 150ms;
 	cursor: pointer;
-}
-
-#place-bid-button:hover {
-	box-shadow: var(--ev-neu-1-hover-accent-secondary);
-}
-
-#place-bid-button span {
-	font-family: var(--font-pixel);
-	font-size: 1.25rem;
-	color: var(--clr-accent-secondary-heavy);
-	transition: 300ms;
-}
-
-#place-bid-button:hover span {
-	transform: scale(1.12);
-}
+} */
 
 /* BID DIALOG -------------- */
 dialog {

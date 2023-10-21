@@ -45,18 +45,12 @@
 			"12": { "value": "144px", "type": "spacing" }
 		}
 	},
-	"spdb": {
-		"1": { "value": "8px", "type": "spacing" },
-		"2": { "value": "16px", "type": "spacing" },
-		"3": { "value": "32px", "type": "spacing" },
-		"4": { "value": "64px", "type": "spacing" },
-		"5": { "value": "128px", "type": "spacing" },
-		"6": { "value": "256px", "type": "spacing" },
-		"7": { "value": "512px", "type": "spacing" },
-		"8": { "value": "1024px", "type": "spacing" },
-		"9": { "value": "2048px", "type": "spacing" },
-		"10": { "value": "4096px", "type": "spacing" },
-		"11": { "value": "8192px", "type": "spacing" },
-		"12": { "value": "16384px", "type": "spacing" }
+	"gap": {
+		"basis": { "value": "{root.spacing.gap.basis}" },
+		"scale": { "value": "{root.spacing.gap.scale}" },
+		"min": { "value": "calc({gap.s} - (({gap.basis} * {gap.scale}) / 2))" },
+		"s": { "value": "{gap.basis}" },
+		"l": { "value": "calc({gap.s} + ({gap.basis} * {gap.scale}))" },
+		"max": { "value": "calc({gap.l} + ({gap.basis} * {gap.scale}))" }
 	}
 }

@@ -2,21 +2,18 @@
 #side-panel {
 	--panel-w: 400px;
 	width: var(--panel-w);
-	padding: var(--gap-i);
+	padding: var(--gap-l);
 	overflow-x: hidden;
 	overflow-y: auto;
 	flex-grow: 1;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
-	gap: var(--gap-ii);
-	background-color: var(--clr-surface-secondary);
-	background-image: url('/public/cut-mat.webp');
-	background-size: auto 102.5%;
-	background-position: 25% center;
-	border-radius: var(--sp-2) 0 0 var(--sp-2);
-	box-shadow: var(--ev-neu-outer-surface-secondary);
-	transition: 250ms;
+	/* justify-content: space-between; */
+	gap: var(--gap-l);
+	border-top: var(--bdw) solid var(--clr-ink);
+	border-radius: 0 0 var(--bdr-o) var(--bdr-o);
+	background-color: var(--clr-surface);
+	transition: var(--ix-transition-hover);
 	z-index: 6;
 }
 
@@ -29,13 +26,13 @@
 @media screen and (max-width: 960px) {
 	#side-panel {
 		position: fixed;
-		top: var(--gap-i);
+		top: var(--page-pad);
 		right: 0;
-		transform: translateX(var(--panel-w));
+		bottom: var(--page-pad);
 		/*  */
 		/* This property needs to be toggled on via prop/data attribute etc for the panel reveal mechanism */
 		/*  */
-		bottom: var(--gap-i);
+		transform: translateX(var(--panel-w));
 	}
 
 	#sidepanel[data-is-visible='true'] {
@@ -45,16 +42,10 @@
 
 /* HIDE BUTTON----------------------------- */
 #hide-button {
-	height: var(--sp-5);
-	border: 1px solid var(--clr-accent-tertiary-heavy);
+	padding: 0 var(--gap-l);
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
-	border-radius: var(--sp-12);
-	background-color: var(--clr-surface-secondary);
-	box-shadow: var(--ev-neu-1-surface-secondary);
-	cursor: pointer;
-	transition: 300ms;
 }
 
 @media screen and (min-width: 961px) {
@@ -63,145 +54,75 @@
 	}
 }
 
-/* @media screen and (min-height: 861px) {
-	#hide-button {
-		display: none;
-	}
-} */
-
-#hide-button:hover {
-	background-color: var(--clr-accent-secondary);
-}
-
-#hide-button span {
-	font-family: var(--font-pixel);
-	font-size: 0.875rem;
-	color: var(--clr-accent-secondary);
-	transition: 300ms;
-}
-
-#hide-button:hover span {
-	color: var(--clr-accent-secondary-heavy);
-	transform: scale(1.12);
-}
-
-/* DETAILS -------------------------------- */
-#focus-token-details {
-	padding: var(--gap-i);
+/* FOCUS TOKEN CONTAINER ------------------ */
+#focus-token-container {
 	flex-grow: 1;
 	display: flex;
 	flex-direction: column;
-	gap: var(--gap-i);
-	background-image: var(--clr-surface-secondary-gr);
-	border: 1px solid var(--clr-accent-secondary);
-	border-radius: var(--sp-3);
-}
-
-#focus-token-title {
-	min-height: var(--sp-5);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	box-shadow: var(--ev-neu-1-inset-surface-secondary);
-	border-radius: var(--sp-2);
-}
-
-#focus-token-title span {
-	font-family: var(--font-pixel);
-	font-size: 1.125rem;
-	color: var(--clr-accent-secondary);
-}
-
-/* Auction details */
-#focus-token-auction-details-container {
-	flex-grow: 1;
-	display: flex;
-	flex-direction: column;
-	gap: var(--gap-ii);
-}
-
-.focus-token-auction-details-item {
-	height: var(--sp-4);
-	padding: 0 var(--gap-i);
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	box-shadow: var(--ev-neu-1-inset-surface-secondary);
-	border-radius: var(--sp-1);
-}
-
-.focus-token-auction-details-item span {
-	font-family: var(--font-pixel);
-	font-size: 0.875rem;
-}
-
-.focus-token-auction-details-item span:first-child {
-	color: var(--clr-accent-secondary);
-}
-
-.focus-token-auction-details-item span:last-child {
-	color: var(--clr-ink-on-heavy);
+	gap: var(--gap-l);
 }
 
 /* IMAGE ---------------------------------- */
 #focus-token-image-container {
-	width: 100%;
-	height: 100%;
-	min-height: var(--sp-12);
 	flex-grow: 1;
-	overflow: hidden;
-	position: relative;
 	display: flex;
 	justify-content: center;
-	align-items: center;
-	border-radius: var(--sp-2);
+	align-items: start;
+	border-radius: var(--bdr-i);
+	background-image: var(--bg-url);
+	background-size: cover;
+	background-position: center;
 }
 
-#focus-token-image {
-	height: 100%;
-	position: absolute;
-	border-radius: var(--sp-2);
-}
-
-/* VIP BADGE ------------------------------ */
-.vip-badge-container {
-	width: 100%;
-	height: var(--sp-6);
-	padding: var(--gap-ii);
-	position: absolute;
-	bottom: var(--gap-ii);
-	/* left: 0; */
-	background-color: var(--clr-accent-secondary);
-	border-radius: var(--sp-6);
-	z-index: 2;
-}
-
-[data-is-vip='false'] .vip-badge-container {
-	display: none;
-}
-
-.vip-badge {
-	width: 100%;
-	height: 100%;
-	padding: 0 var(--gap-ii);
+/* TITLE ---------------------------------- */
+#focus-token-title-container {
 	display: flex;
+}
+
+#focus-token-title-container > *:first-child {
+	transform: rotate(180deg) translateX(-1px);
+}
+
+#focus-token-title-container > *:first-child > path {
+	fill: var(--clr-surface);
+}
+
+#focus-token-title-container > *:last-child {
+	transform: rotate(180deg) translateX(1px);
+}
+
+#focus-token-title-container > *:last-child > path {
+	fill: var(--clr-surface);
+}
+
+#focus-token-title-container > .title {
+	padding: 0 var(--gap-l);
+	background-color: var(--clr-surface);
+}
+
+/* DETAILS -------------------------------- */
+#focus-token-auction-details-container {
+	display: flex;
+	flex-direction: column;
+}
+
+#focus-token-auction-details-container > .item {
+	height: var(--sp-5);
+	display: flex;
+	justify-content: space-between;
 	align-items: center;
-	border-radius: var(--sp-6);
-	outline: 1px solid transparent;
-	box-shadow: var(--ev-neu-1-accent-secondary);
+	border-top: var(--bdw) solid var(--clr-ink);
 }
 
-.vip-badge > svg {
-	width: var(--sp-3);
-	height: var(--sp-3);
-	fill: var(--clr-accent-secondary-heavy-x);
+#focus-token-auction-details-container > .item > span {
+	font-family: var(--font-display);
 }
 
-.vip-string {
-	width: 100%;
-	padding: 0 var(--gap-ii);
-	display: flex; 
-	justify-content: center;
-	font-family: var(--font-mono);
+#focus-token-auction-details-container > .item > span:first-child {
+	font-weight: 600;
 }
 
+#focus-token-auction-details-container > .item > span:last-child {
+	color: var(--clr-ink-tr-x);
+	font-weight: 400;
+}

@@ -1,0 +1,41 @@
+{
+	"scale": {
+		"type": {
+			"factor": { "value": "1.250" },
+			"basis": { "value": "0.5rem" },
+			"min": { "value": "{scale.type.basis}" },
+			"1": { "value": "calc({scale.type.basis} * {scale.type.factor})" },
+			"2": { "value": "calc(({scale.type.basis} * 2) * {scale.type.factor})" },
+			"3": { "value": "calc(({scale.type.basis} * 3) * {scale.type.factor})" },
+			"4": { "value": "calc(({scale.type.basis} * 4) * {scale.type.factor})" },
+			"5": { "value": "calc(({scale.type.basis} * 5) * {scale.type.factor})" },
+			"6": { "value": "calc(({scale.type.basis} * 6) * {scale.type.factor})" },
+			"7": { "value": "calc(({scale.type.basis} * 7) * {scale.type.factor})" },
+			"8": { "value": "calc(({scale.type.basis} * 8) * {scale.type.factor})" },
+			"9": { "value": "calc(({scale.type.basis} * 9) * {scale.type.factor})" },
+			"10": { "value": "calc(({scale.type.basis} * 10) * {scale.type.factor})" },
+			"11": { "value": "calc(({scale.type.basis} * 11) * {scale.type.factor})" },
+			"12": { "value": "calc(({scale.type.basis} * 12) * {scale.type.factor})" }
+		},
+		"time": {
+			"factor": { "value": "3" },
+			"basis": { "value": "60ms" },
+			"min": { "value": "{scale.time.basis}" },
+			"1": { "value": "calc({scale.time.basis} * {scale.time.factor})" },
+			"2": { "value": "calc(({scale.time.basis} * 2) * {scale.time.factor})" },
+			"3": { "value": "calc(({scale.time.basis} * 3) * {scale.time.factor})" },
+			"4": { "value": "calc(({scale.time.basis} * 4) * {scale.time.factor})" },
+			"5": { "value": "calc(({scale.time.basis} * 5) * {scale.time.factor})" },
+			"6": { "value": "calc(({scale.time.basis} * 6) * {scale.time.factor})" }
+		},
+		"transform": {
+			"factor": { "value": "2" },
+			"basis": { "value": "0.04" },
+			"min": { "value": "{scale.transform.basis}" },
+			"1": { "value": "calc({scale.transform.basis} * {scale.transform.factor})" },
+			"2": { "value": "calc({scale.transform.basis} * ({scale.transform.factor} * 2))" },
+			"3": { "value": "calc({scale.transform.basis} * ({scale.transform.factor} * 3))" },
+			"4": { "value": "calc({scale.transform.basis} * ({scale.transform.factor} * 4))" }
+		}
+	}
+}

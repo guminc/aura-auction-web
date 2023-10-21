@@ -1,0 +1,105 @@
+{
+	"root": {
+		"color": {
+			"primary": {
+				"value": "84, 55, 12",
+				"inverted": "65, 56, 77"
+			},
+
+			"secondary": {
+				"value": "{root.color.primary}",
+				"inverted": "{root.color.primary.inverted}"
+			},
+
+			"schedule": {
+				"light-x": "0.025",
+				"light": "0.25",
+				"heavy": "0.75",
+				"heavy-x": "0.85"
+			},
+
+			"accent": {
+				"value": "210, 174, 255",
+				"light": "250, 248, 255",
+				"heavy": "210, 174, 255"
+			},
+
+			"background": {
+				"value": "243, 241, 238",
+				"inverted": "254, 254, 248",
+				"overlay": {
+					"value": "var(--clr-background)",
+					"inverted": "var(--clr-background)",
+					"transparency": "0"
+				}
+			},
+
+			"surface": {
+				"value": "255, 255, 255",
+				"inverted": "{root.color.primary}",
+				"transparency": "1",
+				"light": {
+					"value": "{root.color.primary}",
+					"inverted": "{root.color.primary}",
+					"transparency": "1"
+				},
+				"heavy": {
+					"value": "{root.color.primary}",
+					"inverted": "{root.color.primary}",
+					"transparency": "0.125"
+				}
+			},
+
+			"ink": {
+				"value": "{root.color.primary}",
+				"inverted": "{root.color.primary.inverted}",
+				"accent": "{root.color.ink.value}",
+				"ink-secondary": {
+					"value": "{root.color.primary}",
+					"inverted": "{root.color.primary.inverted}"
+				}
+			}
+		},
+
+		"spacing": {
+			"gap": {
+				"basis": "{sp.1}",
+				"scale": "1"
+			}
+		},
+
+		"border": {
+			"width": {
+				"value": "2px"
+			},
+			"radius": {
+				"basis": "{sp.1}",
+				"scale": "1"
+			}
+		},
+
+		"structure": {
+			"page": {
+				"pad": "var(--gap-max)",
+				"border": {
+					"color": "var(--clr-primary-tr-light)"
+				}
+			},
+
+			"section": {
+				"pad": "0",
+				"border": {
+					"color": "transparent"
+				}
+			},
+
+			"nav": {
+				"height": "var(--sp-9)"
+			},
+
+			"shell": {
+				"background": "transparent"
+			}
+		}
+	}
+}

@@ -5,6 +5,8 @@ import * as O from 'fp-ts/Option'
 import style from './SidePanel.module.css'
 
 import { PlaceBidButton } from './PlaceBidButton/PlaceBidButton'
+import { ReactComponent as NotchCornerL } from '../../images/structural/notch-corner-l.svg'
+import { ReactComponent as NotchCornerR } from '../../images/structural/notch-corner-r.svg'
 import { hideSidePanelObserver, reRenderSidePanelObserver, showSidePanelObserver } from '../../state/observerStore'
 import { sleep } from '../../utils/pure'
 import Countdown from 'react-countdown'
@@ -13,14 +15,14 @@ import { pipe } from 'fp-ts/lib/function'
 export const SidePanel: React.FC = () => {
 	const line = useParallelAuctionState((state) => state.getCurrentSelectedLine)()
 	const lineIndex = useParallelAuctionState((s) => s.currentLineIndex)
-    const lineFinished = O.isSome(line) && line.value.head > maxSupply
+	const lineFinished = O.isSome(line) && line.value.head > maxSupply
 	reRenderSidePanelObserver((s) => s.observer) // Subscription
 
-    const isVip = pipe(
-        line,
-        O.map(l => l.head),
-        O.exists(i => vipIds.includes(Number(i)))
-    )
+	const isVip = pipe(
+		line,
+		O.map((l) => l.head),
+		O.exists((i) => vipIds.includes(Number(i)))
+	)
 
 	const tokenName = useParallelAuctionState((s) => s.getFormattedTokenName)(lineIndex)
 	const currentBid = useParallelAuctionState((s) => s.getFormattedCurrentBid)(lineIndex)
@@ -53,62 +55,64 @@ export const SidePanel: React.FC = () => {
 
 	return (
 		<div id={style['side-panel']} ref={sidePanelRef}>
-			<div id={style['hide-button']} onClick={handleHide}>
+			<button id={style['hide-button']} onClick={handleHide}>
 				{' '}
-				<span>HIDE PANEL →</span>
-			</div>
+				<span>HIDE PANEL</span>
+				<span> -&gt; </span>
+			</button>
 
 			<DappConnector />
 
-			<div id={style['focus-token-details']}>
-				<div 
-                    id={style['focus-token-title']}
-                    style={{ display: lineFinished ? 'none' : 'flex' }}
-                >
-					<span>{tokenName}</span>
-				</div>
-
-				<div id={style['focus-token-image-container']} data-is-vip={isVip}>
-					
-					<div className={style['vip-badge-container']}>
-						<div className={style['vip-badge']}>
-						<svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48"><path d="m772-635-43-100-104-46 104-45 43-95 43 95 104 45-104 46-43 100Zm0 595-43-96-104-45 104-45 43-101 43 101 104 45-104 45-43 96ZM333-194l-92-197-201-90 201-90 92-196 93 196 200 90-200 90-93 197Z"/></svg>
-
-							<span className={style['vip-string']}>VIP ONLY: Pixelady, Pixelady BC, Milady, Remilio</span>
+			{/* SELECTED TOKEN */}
+			<div id={style['focus-token-container']}>
+				{/* Image */}
+				<div
+					id={style['focus-token-image-container']}
+					style={
+						{
+							'--bg-url': `url(${lineFinished ? '/soldOut.png' : imageUrl})`
+						} as React.CSSProperties
+					}
+				>
+					{/* Title */}
+					<div id={style['focus-token-title-container']} style={{ display: lineFinished ? 'none' : 'flex' }}>
+						<NotchCornerR />
+						<div className={style['title']}>
+							<span>{tokenName}</span>
 						</div>
-
+						<NotchCornerL />
 					</div>
-
-					<img id={style['focus-token-image']} src={lineFinished ? '/soldOut.png' : imageUrl} alt='Pixelady Figmata NFT artwork' />
 				</div>
 
-				<div 
-                    id={style['focus-token-auction-details-container']}
-                    style={{ display: lineFinished ? 'none' : 'flex' }}
-                >
-					<div className={style['focus-token-auction-details-item']}>
+				{/* Details */}
+				<div
+					id={style['focus-token-auction-details-container']}
+					style={{ display: lineFinished ? 'none' : 'flex' }}
+				>
+					<div className={style['item']}>
 						<span>Current bid:</span>
 						<span>{currentBid}</span>
 					</div>
 
-					<div className={style['focus-token-auction-details-item']}>
+					<div className={style['item']}>
 						<span>Ends in:</span>
 						<span>
-							{O.isSome(endTime) ? 
-                                <Countdown date={endTime.value*1000} daysInHours/> :
-                                PROVIDER_DOWN_MESSAGE()
-                            }
+							{O.isSome(endTime) ? (
+								<Countdown date={endTime.value * 1000} daysInHours />
+							) : (
+								PROVIDER_DOWN_MESSAGE()
+							)}
 						</span>
 					</div>
 
-					<div className={style['focus-token-auction-details-item']}>
+					<div className={style['item']}>
 						<span>Last bid by:</span>
 						<span>{currentWinner}</span>
 					</div>
 				</div>
 			</div>
 
-			<PlaceBidButton enabled={!lineFinished}/>
+			<PlaceBidButton enabled={!lineFinished} />
 		</div>
 	)
 }

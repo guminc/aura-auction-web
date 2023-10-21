@@ -1,0 +1,11 @@
+{
+	"bdw": { "value": "{root.border.width}" },
+	"bdr": {
+		"basis": { "value": "{root.border.radius.basis}" },
+		"scale": { "value": "{root.border.radius.scale}" },
+		"min": { "value": "calc({bdr.i} - (({bdr.basis} * {bdr.scale}) / 2))" },
+		"i": { "value": "{bdr.basis}" },
+		"o": { "value": "calc({bdr.i} + ({bdr.basis} * {bdr.scale}))" },
+		"max": { "vlaue": "calc({bdr.o} + ({bdr.basis} * {bdr.scale}))" }
+	}
+}

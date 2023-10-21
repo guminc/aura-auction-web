@@ -1,14 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=AR+One+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&display=swap');
+
 * {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
-}
-
-body {
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
-		'Droid Sans', 'Helvetica Neue', sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
 }
 
 html,
@@ -18,100 +13,28 @@ body,
 	max-width: 100%;
 	height: 100%;
 	/* overflow-x: hidden;
-	overscroll-behavior-y: none; */
+overscroll-behavior-y: none; */
 	overflow: hidden;
 }
 
-code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-}
-
 /* FONT ----------------------------------- */
-@font-face {
-	font-family: 'SF Pixelate';
-	src: local('SF Pixelate'), url(./font/SFPixelate.ttf) format('truetype');
-	font-weight: 500;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: 'monogram';
-	src: local('monogram'), url(./font/monogram.ttf) format('truetype');
-	font-weight: 500;
-	font-display: swap;
-}
 
 :root {
 	--font-pixel: 'SF Pixelate', monospace;
 	--font-mono: 'monogram', monospace;
 }
 
-
 /* CORE VARS ------------------------------ */
-:root {
-	--gap-o: var(--sp-3);
-	--gap-i: var(--sp-2);
-	--gap-ii: var(--sp-1);
-	--outer-border: var(--sp-5);
-}
-
-@media screen and (max-width: 720px) {
-	:root {
-		--outer-border: var(--sp-2);
-	}
-}
 
 /* APP LAYOUT ----------------------------- */
 .App {
 	height: 100%;
 	width: 100%;
-	padding: var(--gap-o) 0;
+	padding: var(--page-pad);
 	overflow: hidden;
 	display: flex;
-	gap: var(--gap-o);
-	background-image: url('/public/bg-main.webp');
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
-}
-
-@media screen and (max-width: 960px) {
-	.App {
-		padding-right: var(--gap-o);
-	}
-}
-
-/* MOTIF BORDER --------------------------- */
-#motif-border {
-	width: var(--outer-border);
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	background-image: url('/public/bg-motif-border.svg');
-	background-position: 0 0;
-	background-size: 100%;
-	animation-name: border-pan;
-	animation-duration: 60s;
-	animation-iteration-count: infinite;
-	animation-direction: alternate-reverse;
-	animation-timing-function: linear;
-	z-index: 3;
-}
-
-#motif-border:nth-of-type(2) {
-	right: 0;
-	left: auto;
-	transform: rotate(180deg);
-}
-
-@keyframes border-pan {
-	from {
-		background-position: 0 0;
-	}
-	to {
-		background-position: 0 400%;
-	}
+	gap: var(--gap-l);
+	background-color: var(--clr-background);
 }
 
 /* MAIN ----------------------------------- */
@@ -119,7 +42,7 @@ main {
 	flex-grow: 4;
 	display: flex;
 	flex-direction: column;
-	gap: var(--gap-i);
+	gap: var(--gap-s);
 }
 
 /* Body */
@@ -128,9 +51,6 @@ main > .body {
 	flex-grow: 1;
 	display: flex;
 	flex-direction: column;
-	border-radius: 0 var(--sp-2) var(--sp-2) 0;
-	background-color: var(--clr-bg);
-	box-shadow: var(--ev-neu-outer);
 }
 
 /* COUNTDOWN PAGE -------------------------- */
@@ -143,4 +63,20 @@ main > .body {
 	align-items: center;
 	position: relative;
 	gap: var(--gap-o);
+}
+
+/* BUTTONS -------------------------------- */
+button {
+	min-height: var(--sp-5);
+	padding: var(--gap-i);
+	border-style: none;
+	border: calc(var(--bdw) / 2) solid var(--clr-primary);
+	border-radius: var(--bdr-i);
+	background-color: transparent;
+	cursor: pointer;
+	transition: var(--ix-transition-hover);
+}
+
+button:hover {
+	background-color: var(--clr-primary);
 }

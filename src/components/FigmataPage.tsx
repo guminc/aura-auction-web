@@ -9,9 +9,9 @@ import { Toaster } from 'react-hot-toast'
 const cloudflareGateway = 'https://cloudflare-ipfs.com/ipfs/'
 
 export const FigmataPage: React.FC = () => {
-	const config = useParallelAuctionState(s => s.setAuctionData)
-	const auctionData = useParallelAuctionState(s => s.auctionData)
-	const userConnected = useUserStore(s => s.userConnected)
+	const config = useParallelAuctionState((s) => s.setAuctionData)
+	const auctionData = useParallelAuctionState((s) => s.auctionData)
+	const userConnected = useUserStore((s) => s.userConnected)
 
 	useEffect(() => {
 		// TODO This all should be decoupled into a config file and
@@ -25,8 +25,6 @@ export const FigmataPage: React.FC = () => {
 
 	return (
 		<>
-			<div id="motif-border"></div>
-
 			<main>
 				<Header />
 				<AuctionHouseBody />

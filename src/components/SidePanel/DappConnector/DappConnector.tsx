@@ -10,8 +10,7 @@ export const DappConnector = () => {
 	const userAddr = useUserStore((state) => state.formattedUserAddress)
 
 	const handleClick = async () => {
-		if (!userConnected && E.isRight(await connection()))
-			toast.success('Wallet connected')
+		if (!userConnected && E.isRight(await connection())) toast.success('Wallet connected')
 		else {
 			disconnection()
 			toast('Wallet disconnected')
@@ -24,10 +23,8 @@ export const DappConnector = () => {
 	}
 
 	return (
-		<div id={style['connect-button-container']}>
-			<div id={style['connect-button']} onClick={handleClick}>
-				<span>{getWalletText()}</span>
-			</div>
-		</div>
+		<button id={style['host']} onClick={handleClick}>
+			<span>{getWalletText()}</span>
+		</button>
 	)
 }

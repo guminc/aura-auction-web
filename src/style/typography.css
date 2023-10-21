@@ -1,0 +1,66 @@
+* {
+	font-family: var(--font-body);
+	color: var(--clr-ink);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* FONT FAMILY ---------------------------- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button,
+button > span,
+a,
+a > span {
+	font-family: var(--font-display);
+}
+
+/* SIZE ----------------------------------- */
+.txt-s {
+	font-size: 0.875rem;
+}
+
+button,
+button > span {
+	font-size: 1.0875rem;
+}
+
+/* WEIGHT --------------------------------- */
+button,
+button > span {
+	font-weight: 700;
+}
+
+/* COLOR ---------------------------------- */
+button:hover,
+button:hover span {
+	color: var(--clr-ink-on-heavy);
+}
+
+/* CASE ----------------------------------- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label {
+	text-transform: var(--font-case-display);
+}
+
+button,
+button > span {
+	text-transform: var(--font-case-button);
+}
+
+/* ANCHORS -------------------------------- */
+a,
+a > span {
+	color: var(--clr-ink);
+	font-weight: 700;
+	text-decoration: none;
+}

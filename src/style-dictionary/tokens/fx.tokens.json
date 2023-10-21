@@ -1,0 +1,7 @@
+{
+	"fx": {
+		"glow": {
+			"1": { "value": "0 0 {sp.2} {clr.primary-tr.light}" }
+		}
+	}
+}

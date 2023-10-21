@@ -1,9 +1,9 @@
-import { AuctionGallery } from "./AuctionGallery/AuctionGallery"
-import { Footer } from "./Footer/Footer"
+import { AuctionGallery } from './AuctionGallery/AuctionGallery'
 
 export const AuctionHouseBody = () => {
-    return <div className="body">
-        <AuctionGallery />
-        <Footer />
-    </div>
+	return (
+		<div className="body">
+			<AuctionGallery />
+		</div>
+	)
 }

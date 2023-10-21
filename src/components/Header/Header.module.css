@@ -1,114 +1,111 @@
-/* Header */
-#header {
-	height: 10vw;
-	min-height: min(10vw, calc(var(--sp-5) * 2));
-	max-height: calc(var(--sp-5) * 2);
-}
-
-.brand-container {
-	width: 100%;
-	height: 100%;
-	position: relative;
+.host {
+	height: var(--nav-height);
+	/* min-height: var(--nav-height); */
 	display: flex;
-	flex-direction: column;
-	align-items: center;
+	gap: var(--gap-s);
 }
 
-.brand-container > .title,
-.brand-container > .subtitle {
-	z-index: 1;
+.host > * {
+	height: 100%;
+	display: flex;
+	gap: var(--gap-s);
 }
 
-.brand-container > .title {
-	height: 40%;
-	width: 80%;
-	position: absolute;
-	top: 23%;
+@media only screen and (max-width: 960px) {
+	.host {
+		flex-direction: column;
+		height: fit-content;
+	}
+
+	.host > * {
+		flex-grow: 1;
+	}
+
+	.host > * > * {
+		flex-grow: 1;
+	}
+}
+
+/* BRAND ---------------------------------- */
+#brand-container {
+	padding: var(--gap-s) 0;
+	flex-grow: 1;
+	border-top: var(--bdw) solid var(--clr-ink);
+}
+
+@media only screen and (max-width: 960px) {
+	#brand-container {
+		max-height: var(--sp-9);
+	}
+}
+
+/* NAV ------------------------------------ */
+@media only screen and (max-width: 960px) {
+	#nav {
+		max-height: var(--sp-9);
+	}
+}
+
+#nav > a {
+	padding: var(--gap-l);
 	display: flex;
 	justify-content: center;
+	align-items: center;
+	border-top: var(--bdw) solid var(--clr-ink);
+	border-radius: 0 0 var(--bdr-o) var(--bdr-o);
+	transition: var(--ix-transition-hover);
 }
 
-.brand-container > .title > img {
-	max-width: 40%;
-}
-
-#brand-word-pixelady {
-	filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.33));
-}
-
-#brand-word-figmata {
-	animation-name: figmata-glow;
-	animation-duration: 4000ms;
-	animation-iteration-count: infinite;
-	animation-direction: alternate;
-	animation-timing-function: linear;
-}
-
-@keyframes figmata-glow {
-	0% {
-		filter: drop-shadow(0 0 24px var(--clr-accent-supplementary-a))
-			drop-shadow(0 0 56px var(--clr-accent-supplementary-a))
-			drop-shadow(0 2px 2px rgba(0, 0, 0, 0.75));
-	}
-	33% {
-		filter: drop-shadow(0 0 24px var(--clr-accent-supplementary-b))
-			drop-shadow(0 0 56px var(--clr-accent-supplementary-b))
-			drop-shadow(0 2px 2px rgba(0, 0, 0, 0.75));
-	}
-	66% {
-		filter: drop-shadow(0 0 24px var(--clr-accent-supplementary-c))
-			drop-shadow(0 0 56px var(--clr-accent-supplementary-c))
-			drop-shadow(0 2px 2px rgba(0, 0, 0, 0.75));
-	}
-	100% {
-		filter: drop-shadow(0 0 24px var(--clr-accent-supplementary-d))
-			drop-shadow(0 0 56px var(--clr-accent-supplementary-d))
-			drop-shadow(0 2px 2px rgba(0, 0, 0, 0.75));
+@media only screen and (max-width: 960px) {
+	#nav a {
+		flex: 1 1 0;
 	}
 }
 
-.brand-container > .title > span {
-	position: absolute;
-	bottom: -82%;
-	font-family: var(--font-pixel);
-	color: var(--clr-accent-secondary);
-	font-weight: bold;
-	font-size: 1.25rem;
-	transform: translateX(-67%);
-	filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5));
+#nav > a:hover {
+	background-color: var(--clr-surface);
 }
 
-@media screen and (max-width: 1230px) {
-	.brand-container > .title > span {
-		font-size: 1.4vw;
-		transform: translateX(-10vw);
+#nav > a > span {
+	transition: var(--ix-transition-hover);
+}
+
+#nav > a:hover > span {
+	transform: var(--ix-transform-hover);
+}
+
+/* LINKS ---------------------------------- */
+#links-container > * {
+	width: var(--sp-5);
+	padding: var(--gap-min);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-top: var(--bdw) solid var(--clr-ink);
+	border-radius: 0 0 var(--bdr-o) var(--bdr-o);
+	transition: var(--ix-transition-hover);
+}
+
+@media only screen and (max-width: 960px) {
+	#links-container {
+		max-height: var(--sp-5);
 	}
 }
 
-@media screen and (max-width: 1080px) {
-	.brand-container > .title > span {
-		font-size: 1.5vw;
-		transform: translateX(-10.75vw);
-	}
+#links-container > *:hover {
+	background-color: var(--clr-surface);
 }
 
-@media screen and (max-width: 960px) {
-	.brand-container > .title > span {
-		font-size: 1.875vw;
-		transform: translateX(-13vw);
-	}
+#links-container > * > * {
+	max-height: 100%;
+	transition: var(--ix-transition-hover);
 }
 
-@media screen and (max-width: 860px) {
-	.brand-container > .title > span {
-		font-size: 2.25vw;
-		transform: translateX(-75%);
-	}
+#links-container > * > *:hover {
+	transform: var(--ix-transform-hover);
 }
 
-.brand-container > #brand-banner-container {
-	height: 100%;
-	max-width: 75%;
-	position: absolute;
-	mix-blend-mode: multiply;
+#link-x,
+#link-opensea {
+	padding: var(--gap-s);
 }

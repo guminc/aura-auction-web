@@ -1,0 +1,45 @@
+{
+	"ix": {
+		"transition": {
+			"hover": { "value": "{scale.time.1}" },
+			"active": { "value": "{scale.time.min}" }
+		},
+		"transform": {
+			"hover": { "value": "scale(calc(1 + {scale.transform.1}))" },
+			"active": { "value": "scale(calc(1 - {scale.transform.min}))" }
+		},
+		"clr": {
+			"hover": {
+				"from-primary": { "value": "{clr.accent}" },
+				"from-primary-tr-invisible": { "value": "{clr.primary-tr.light}" },
+				"from-sentiment-positive-tr-invisible": {
+					"value": "{clr.sentiment.positive-tr.light}"
+				},
+				"from-sentiment-negative-tr-invisible": {
+					"value": "{clr.sentiment.negative-tr.light}"
+				}
+			},
+			"active": {
+				"from-primary": { "value": "{clr.accent-light}" },
+				"from-primary-tr-invisible": { "value": "{clr.primary-tr.heavy}" },
+				"from-sentiment-positive-tr-invisible": {
+					"value": "{clr.sentiment.positive-tr.heavy}"
+				},
+				"from-sentiment-negative-tr-invisible": {
+					"value": "{clr.sentiment.negative-tr.heavy}"
+				}
+			}
+		}
+	},
+	"animate": {
+		"duration": {
+			"1": { "value": "{scale.time.4}" },
+			"2": { "value": "{scale.time.6}" }
+		},
+		"transform": {
+			"scale": {
+				"1": { "value": "scale(calc(1 + {scale.transform.1}))" }
+			}
+		}
+	}
+}
