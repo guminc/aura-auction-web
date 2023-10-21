@@ -67,7 +67,7 @@
 	flex-grow: 1;
 	display: flex;
 	justify-content: center;
-	align-items: start;
+	flex-start: start;
 	border-radius: var(--bdr-i);
 	background-image: var(--bg-url);
 	background-size: cover;

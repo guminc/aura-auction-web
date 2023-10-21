@@ -22,7 +22,7 @@ import { useLineTimersStore } from './lineTimeoutsStore'
 
 // Epic hardcodes :3
 export const PROVIDER_DOWN_MESSAGE = () => 'Connect wallet :('
-export const vipIds = process.env.REACT_APP_VIP_IDS!.split(',').map(Number)
+export const vipIds = [999] //process.env.REACT_APP_VIP_IDS!.split(',').map(Number)
 // Should I harcode those kinds of states? I think I should abstract
 // this pattern of loading the whole immutable system state, because
 // having lots of silly consts like `tokenName` only make the store

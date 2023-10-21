@@ -18,7 +18,7 @@ export const FigmataPage: React.FC = () => {
 		// evaluated from a store.
 		config(
 			process.env.REACT_APP_AUCTION_CONTRACT!,
-			'Figmata',
+			'AuraGamma',
 			`${cloudflareGateway}${process.env.REACT_APP_IMAGES_URI!}`
 		)
 	}, [userConnected, auctionData, config])
