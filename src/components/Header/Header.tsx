@@ -38,14 +38,14 @@ export const Header = () => {
 					<IconBrandX />
 				</a>
 
-				<a 
+				{/* <a 
 					id={style['link-opensea']} 
 					href="https://opensea.io/collection/0xa2185B3A0d8788E007d0c9ca261F154721c2aCEA" 
 					target="_blank" 
 					rel="noopener noreferrer"
                 >
 					<IconBrandOpenSea />
-				</a>
+				</a> */}
 			</div>
 		</header>
 	)
