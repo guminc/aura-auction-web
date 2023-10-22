@@ -32,9 +32,18 @@
 	right: 0;
 	bottom: 0;
 	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	overflow: hidden;
-	background-color: var(--clr-background);
+	background-image: url('/public/aura-animation-2.webp');
+	background-position: center;
+	background-size: auto 100%;
+	background-repeat: no-repeat;
 	z-index: 8;
+}
+
+[data-prelaunch='false']#placeholder-overlay {
 	animation-name: placeholder;
 	animation-duration: 600ms;
 	animation-delay: 2200ms;
@@ -58,15 +67,23 @@
 	}
 }
 
-#placeholder-overlay::before {
-	content: '';
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	background-image: url('/public/aura-animation-2.webp');
-	background-position: center;
-	background-size: auto 100%;
-	background-repeat: no-repeat;
+/* COUNTER -------------------------------- */
+#placeholder-counter-container {
+	padding: var(--gap-l) var(--sp-9);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/* border: var(--bdw) solid var(--clr-ink); */
+	border-radius: var(--bdr-o);
+	background-color: var(--clr-primary-tr-light-x);
+	backdrop-filter: blur(var(--sp-4));
+	z-index: 12;
+}
+
+[data-prelaunch='false'] #placeholder-counter-container {
+	display: none;
+}
+
+#placeholder-counter-container > span {
+	font-size: 3rem;
 }

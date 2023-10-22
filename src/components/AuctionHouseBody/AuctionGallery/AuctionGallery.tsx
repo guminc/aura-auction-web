@@ -9,6 +9,10 @@ export const AuctionGallery = () => (
 			return <AuctionCard lineIndex={i} key={i} />
 		})}
 
-		<div id={style['placeholder-overlay']}></div>
+		<div id={style['placeholder-overlay']} data-prelaunch="true">
+			<div id={style['placeholder-counter-container']}>
+				<span>00:00:00</span>
+			</div>
+		</div>
 	</div>
 )
