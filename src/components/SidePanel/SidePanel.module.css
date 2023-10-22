@@ -13,7 +13,8 @@
 	border-top: var(--bdw) solid var(--clr-ink);
 	border-radius: 0 0 var(--bdr-o) var(--bdr-o);
 	background-color: var(--clr-surface);
-	transition: var(--ix-transition-hover);
+	transition: 300ms;
+	transition-timing-function: ease-in-out;
 	z-index: 6;
 }
 
@@ -77,6 +78,7 @@
 /* TITLE ---------------------------------- */
 #focus-token-title-container {
 	display: flex;
+	height: var(--sp-3);
 }
 
 #focus-token-title-container > *:first-child {
@@ -98,6 +100,13 @@
 #focus-token-title-container > .title {
 	padding: 0 var(--gap-l);
 	background-color: var(--clr-surface);
+}
+
+#focus-token-title-container > .title > span {
+	font-family: var(--font-display);
+	text-transform: var(--font-case-display);
+	font-weight: 600;
+	font-size: 0.875rem;
 }
 
 /* DETAILS -------------------------------- */

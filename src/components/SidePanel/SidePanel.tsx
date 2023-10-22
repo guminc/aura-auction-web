@@ -39,11 +39,13 @@ export const SidePanel: React.FC = () => {
 	useEffect(() => {
 		if (!sidePanelRef.current) return
 		sidePanelRef.current!.style.transform = 'translateX(100%)'
+		sidePanelRef.current!.style.filter = 'blur(16px)'
 	}, [onChangeHidePanel])
 
 	useEffect(() => {
 		if (!sidePanelRef.current) return
 		sidePanelRef.current!.style.transform = 'translateX(0px)'
+		sidePanelRef.current!.style.filter = 'blur(0)'
 	}, [onChangeShowPanel])
 
 	const hideSidePanel = hideSidePanelObserver((s) => s.notifyObservers)

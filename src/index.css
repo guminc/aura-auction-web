@@ -80,3 +80,18 @@ button {
 button:hover {
 	background-color: var(--clr-primary);
 }
+
+/* INPUT ---------------------------------- */
+input {
+	padding: var(--gap-s) var(--gap-l);
+	margin-top: var(--gap-i);
+	border: none;
+	border-radius: var(--bdr-min);
+	background-color: white;
+	box-shadow: var(--ev-neu-1-inset);
+	transition: border-radius 0.25s ease;
+}
+
+input:focus {
+	outline: calc(var(--bdw) / 2) solid var(--clr-ink);
+}

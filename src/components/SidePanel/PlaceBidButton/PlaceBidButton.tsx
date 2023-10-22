@@ -144,42 +144,43 @@ export const PlaceBidButton: React.FC<PlaceBidButtonProps> = ({ enabled = true }
 			>
 				<span>{enabled ? 'PLACE YOUR BID' : 'AUCTION ENDED'}</span>
 			</button>
+
 			<dialog id="bidModal">
-				<h2>Place Bid</h2>
-				<div id={style['current-bid-detail']}>
+				<h3>Place Bid</h3>
+				<div id={style['current-bid-container']}>
 					<span>Current bid: </span>
 					<span>{currentBid}</span>
 				</div>
+
 				<input
 					id={style['bid-input']}
 					type="number"
 					placeholder={minPrice}
 					min={minPrice}
-					step="0.025" // FIXME This shouldn't be hardcoded.
+					step="0.01" // FIXME This shouldn't be hardcoded.
 					onChange={(event) => setInputValue(parseFloat(event.target.value))}
 					value={inputValue}
 				/>
-				<div>
-					{userConnected ? (
-						<div className={style['action-row']}>
-							<button id={style['cancel-modal']} onClick={handleModalClosing}>
-								Cancel
-							</button>
-							<button id={style['confirm-modal']} onClick={handleBidConfirmation}>
-								Confirm
-							</button>
-						</div>
-					) : (
-						<div className={style['action-row']}>
-							<button id={style['cancel-modal']} onClick={handleModalClosing}>
-								Cancel
-							</button>
-							<button id={style['confirm-modal']} onClick={handleModalWalletConnection}>
-								Connect
-							</button>
-						</div>
-					)}
-				</div>
+
+				{userConnected ? (
+					<div className={style['action-row']}>
+						<button id={style['cancel-modal']} onClick={handleModalClosing}>
+							Cancel
+						</button>
+						<button id={style['confirm-modal']} onClick={handleBidConfirmation}>
+							Confirm
+						</button>
+					</div>
+				) : (
+					<div className={style['action-row']}>
+						<button id={style['cancel-modal']} onClick={handleModalClosing}>
+							Cancel
+						</button>
+						<button id={style['confirm-modal']} onClick={handleModalWalletConnection}>
+							Connect
+						</button>
+					</div>
+				)}
 			</dialog>
 		</>
 	)

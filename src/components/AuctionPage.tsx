@@ -8,7 +8,7 @@ import { Toaster } from 'react-hot-toast'
 
 const cloudflareGateway = 'https://cloudflare-ipfs.com/ipfs/'
 
-export const FigmataPage: React.FC = () => {
+export const AuctionPage: React.FC = () => {
 	const config = useParallelAuctionState((s) => s.setAuctionData)
 	const auctionData = useParallelAuctionState((s) => s.auctionData)
 	const userConnected = useUserStore((s) => s.userConnected)
@@ -40,13 +40,13 @@ export const FigmataPage: React.FC = () => {
 					style: {
 						borderRadius: 'var(--sp-2)',
 						padding: '16px',
-						color: 'var(--clr-accent-heavy)',
-						fontFamily: 'var(--font-pixel)',
+						color: 'var(--clr-ink)',
+						fontFamily: 'var(--font-display)',
 						fontSize: '1.125rem'
 					},
 					iconTheme: {
-						primary: 'var(--clr-accent-heavy)',
-						secondary: 'var(--clr-accent-light)'
+						primary: 'var(--clr-ink)',
+						secondary: 'var(--clr-background)'
 					}
 				}}
 			/>

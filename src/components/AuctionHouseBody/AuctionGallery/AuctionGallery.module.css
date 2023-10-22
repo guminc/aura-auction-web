@@ -19,6 +19,12 @@
 	}
 }
 
+@media only screen and (max-width: 680px) {
+	#auction-container {
+		grid-template-columns: repeat(1, 1fr);
+	}
+}
+
 /* PLACEHOLDER ---------------------------- */
 #placeholder-overlay {
 	position: absolute;
@@ -30,7 +36,7 @@
 	background-color: var(--clr-background);
 	z-index: 8;
 	animation-name: placeholder;
-	animation-duration: 400ms;
+	animation-duration: 600ms;
 	animation-delay: 2200ms;
 	animation-iteration-count: once;
 	animation-fill-mode: forwards;

@@ -24,6 +24,18 @@ a > span {
 	font-size: 0.875rem;
 }
 
+.txt-s-x {
+	font-size: 0.675rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+}
+
+h3 {
+	font-size: 1rem;
+}
+
 button,
 button > span {
 	font-size: 1.0875rem;
@@ -39,6 +51,14 @@ button > span {
 button:hover,
 button:hover span {
 	color: var(--clr-ink-on-heavy);
+}
+
+input {
+	color: var(--clr-ink-tr-light);
+}
+
+input:focus {
+	color: var(--clr-ink);
 }
 
 /* CASE ----------------------------------- */

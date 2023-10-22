@@ -1,42 +1,19 @@
-/* HOST ----------------------------------- */
-.host {
-	/* height: var(--sp-9); */
-	/* padding: var(--gap-i);
-	border: 1px solid var(--clr-accent-secondary);
-	border-radius: var(--sp-12);
-	background-color: var(--clr-accent-secondary); */
-}
-
-/* @media screen and (min-width: 1921px) {
-	.host {
-		height: var(--sp-12);
-	}
-} */
-
-/* BUTTON --------------------------------- */
-/* #place-bid-button {
-	width: 100%;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border-radius: var(--sp-12);
-	background-color: var(--clr-accent-secondary);
-	box-shadow: var(--ev-neu-1-accent-secondary);
-	transition: 150ms;
-	cursor: pointer;
-} */
-
 /* BID DIALOG -------------- */
 dialog {
 	width: 45vw;
 	max-width: calc(var(--sp-12) * 3);
-	padding: var(--gap-o);
+	padding: var(--gap-l);
 	display: flex;
 	flex-direction: column;
-	border: 1px solid var(--clr-ev-cast-x);
-	border-radius: var(--sp-2);
-	background-color: var(--clr-surface);
+	gap: var(--gap-s);
+	border-top: var(--bdw) solid var(--clr-ink);
+	/* For some insane reason you need to do this for dialog borders? lol... */
+	border-right: none;
+	border-bottom: none;
+	border-left: none;
+	/*  */
+	border-radius: 0 0 var(--bdr-o) var(--bdr-o);
+	background-color: var(--clr-background);
 	opacity: 0;
 	scale: 0;
 	margin: auto;
@@ -45,91 +22,31 @@ dialog {
 
 dialog[open] {
 	opacity: 1;
-	scale: 2;
+	scale: 1.5;
 	transition: 250ms;
 }
 
-/* DIALOG BUTTONS ------------------------- */
-#connect-wallet {
-	width: 100%;
+/* CURRENT BID ---------------------------- */
+#current-bid-container {
+	padding: var(--gap-s);
+	display: flex;
+	justify-content: space-between;
+	border: calc(var(--bdw) / 2) solid var(--clr-ink-tr-light);
+	border-radius: var(--bdr-min);
+	font-size: 0.675rem;
 }
 
+#current-bid-container > * {
+	font-family: var(--font-display);
+}
+
+/* ACTIONS -------------------------------- */
 .action-row {
 	display: flex;
-	gap: var(--gap-i);
-	margin-top: var(--gap-i);
+	gap: var(--gap-s);
 }
 
 .action-row > * {
 	flex-grow: 1;
-}
-
-#cancel-modal,
-#confirm-modal,
-#connect-wallet {
-	height: var(--sp-4);
-	border-style: none;
-	border: 1px solid transparent;
-	border-radius: var(--sp-1);
-	background-color: var(--clr-surface);
-	font-family: var(--font-pixel);
-	font-size: 0.675rem;
-	box-shadow: var(--ev-neu-inner-action);
-	cursor: pointer;
-}
-
-#confirm-modal[disabled] {
-	background-color: #bdbdbd;
-	color: #969696;
-	box-shadow: none;
-}
-
-#confirm-modal,
-#connect-wallet {
-	color: var(--clr-accent-heavy);
-}
-
-#cancel-modal {
-	color: var(--clr-ink-secondary);
-}
-
-#cancel-modal:hover,
-#confirm-modal:hover,
-#connect-wallet:hover {
-	border: 1px solid var(--clr-accent);
-	transition: 250ms;
-}
-
-/* INPUT ---------------------------------- */
-#bid-input {
-	padding: var(--gap-ii) var(--gap-i);
-	margin-top: var(--gap-i);
-	border: none;
-	border-radius: var(--sp-1);
-	background-color: white;
-	box-shadow: var(--ev-neu-1-inset);
-	font-family: var(--font-pixel);
-	font-size: 1.25rem;
-	transition: border-radius 0.25s ease;
-}
-
-#bid-input:focus {
-	color: var(--clr-accent-heavy);
-	outline: 1px solid var(--clr-accent);
-}
-
-/* TEXT ----------------------------------- */
-dialog > div > span,
-h2 {
-	font-family: var(--font-pixel);
-}
-
-h2 {
-	color: var(--clr-accent-heavy);
-	font-size: 1.25rem;
-}
-
-#current-bid-detail > span {
-	color: var(--clr-ink-secondary);
 	font-size: 0.75rem;
 }

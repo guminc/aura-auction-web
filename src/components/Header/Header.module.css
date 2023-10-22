@@ -1,6 +1,5 @@
 .host {
 	height: var(--nav-height);
-	/* min-height: var(--nav-height); */
 	display: flex;
 	gap: var(--gap-s);
 }
@@ -28,7 +27,7 @@
 
 /* BRAND ---------------------------------- */
 #brand-container {
-	padding: var(--gap-s) 0;
+	padding: var(--gap-l) 0;
 	flex-grow: 1;
 	border-top: var(--bdw) solid var(--clr-ink);
 }
@@ -46,7 +45,7 @@
 	}
 }
 
-#nav > a {
+#nav > * {
 	padding: var(--gap-l);
 	display: flex;
 	justify-content: center;
@@ -57,20 +56,20 @@
 }
 
 @media only screen and (max-width: 960px) {
-	#nav a {
+	#nav > * {
 		flex: 1 1 0;
 	}
 }
 
-#nav > a:hover {
+#nav > *:hover {
 	background-color: var(--clr-surface);
 }
 
-#nav > a > span {
+#nav > * > * {
 	transition: var(--ix-transition-hover);
 }
 
-#nav > a:hover > span {
+#nav > *:hover > * {
 	transform: var(--ix-transform-hover);
 }
 

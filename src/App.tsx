@@ -1,12 +1,12 @@
 import './style-dictionary/tokens/_STYLE_TOKENS_.css'
 import './style/typography.css'
 import './App.css'
-import { FigmataPage } from './components/FigmataPage'
+import { AuctionPage } from './components/AuctionPage'
 
 function App() {
 	return (
 		<div className="App">
-			<FigmataPage />
+			<AuctionPage />
 		</div>
 	)
 }

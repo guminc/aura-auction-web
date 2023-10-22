@@ -7,7 +7,6 @@ import { hideSidePanelObserver, showSidePanelObserver } from '../../../state/obs
 import { fromWei } from '../../../utils/web3'
 import { sleep } from '../../../utils/pure'
 import Countdown from 'react-countdown'
-import { VipBadgeSvg } from '../../Svgs/VipBadgeSvg'
 import { useUserStatusStore } from '../../../state/userStatusStore'
 import { ReactComponent as NotchCornerL } from '../../../images/structural/notch-corner-l.svg'
 import { ReactComponent as NotchCornerR } from '../../../images/structural/notch-corner-r.svg'
@@ -21,7 +20,6 @@ export const AuctionCard: React.FC<AuctionCardProps> = ({ lineIndex }) => {
 	const setCurrentSelectedLine = useParallelAuctionState((s) => s.setCurrentSelectedIndex)
 	const line = useParallelAuctionState((s) => s.getLine(lineIndex))
 	const imageUrl = useParallelAuctionState((s) => s.getImage(lineIndex))
-	const isVip = useParallelAuctionState((s) => s.getLineIsVip(line))
 	const lineFinished = O.isSome(line) && line.value.head > maxSupply
 
 	/* ---------------- WINNING BADGE HANDLING ---------------- */
@@ -32,7 +30,7 @@ export const AuctionCard: React.FC<AuctionCardProps> = ({ lineIndex }) => {
 		(s) => {
 			switch (s) {
 				case 'userIsWinning':
-					return 'YOU ARE WINNING!'
+					return 'WINNING'
 				case 'userGotOutbidded':
 					return 'OUTBIDDED!'
 				case 'userHasToClaim':
@@ -51,7 +49,7 @@ export const AuctionCard: React.FC<AuctionCardProps> = ({ lineIndex }) => {
 		O.map(fromWei),
 		O.map(parseFloat),
 		O.map((n) => n.toFixed(2)),
-		O.map((f) => `BID: ${f}`),
+		O.map((f) => `${f}`),
 		O.getOrElse(() => '0.00')
 	)
 
@@ -72,16 +70,16 @@ export const AuctionCard: React.FC<AuctionCardProps> = ({ lineIndex }) => {
 	}
 
 	return (
-		<div className={style['host']} onClick={onCardClick} data-is-vip={isVip} data-is-winning={O.isSome(lineStatus)}>
-			<div className={style['user-winning-string-container']}>
-				<span>{auctionStatusText}</span>
-			</div>
-
+		<div className={style['host']} onClick={onCardClick} data-is-winning={O.isSome(lineStatus)}>
 			<div className={style['thumbnail-container']}>
 				<div
 					className={style['thumbnail']}
 					style={{ backgroundImage: `url(${lineFinished ? '/soldOut.png' : imageUrl})` }}
 				>
+					<div className={style['user-winning-string-container']}>
+						<span>{auctionStatusText}</span>
+					</div>
+
 					<div className={style['ring-generator']} />
 					<div className={style['overlay-action']}>
 						<span>VIEW -&gt;</span>
@@ -92,9 +90,9 @@ export const AuctionCard: React.FC<AuctionCardProps> = ({ lineIndex }) => {
 					<NotchCornerL />
 
 					<div className={style['details']}>
-						<span className={'txt-s'}>Ξ{formattedCurrentBid}</span>
-						<span className={'txt-s'}> / </span>
-						<span className={'txt-s'}>
+						<span className={'txt-s-x'}>Ξ{formattedCurrentBid}</span>
+						<span className={'txt-s-x'}> / </span>
+						<span className={'txt-s-x'}>
 							{' '}
 							{O.isSome(endTime) ? <Countdown date={endTime.value * 1000} daysInHours /> : ''}{' '}
 						</span>

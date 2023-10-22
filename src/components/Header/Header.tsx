@@ -19,9 +19,9 @@ export const Header = () => {
 				<a href="/">
 					<span>CURRENT AUCTIONS</span>
 				</a>
-				<a href="/">
-					<span>GALLERY</span>
-				</a>
+				<div>
+					<GalleryModal />
+				</div>
 			</nav>
 
 			<div id={style['links-container']}>
