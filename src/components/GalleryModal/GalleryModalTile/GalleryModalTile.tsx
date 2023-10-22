@@ -12,8 +12,8 @@ export type GalleryModalTileProps = {
 }
 
 // FIXME Hardcode for the lulz.
-const tokenEtherscanUrl = 'https://etherscan.io/token/0xe61443f7db3ca8b7fc083602dcc52726db3d5ff6?a='
-const tokenOpenseaUrl = 'https://opensea.io/assets/ethereum/0xe61443f7db3ca8b7fc083602dcc52726db3d5ff6/'
+const tokenEtherscanUrl = 'https://etherscan.io/token/0xa2185B3A0d8788E007d0c9ca261F154721c2aCEA?a='
+const tokenOpenseaUrl = 'https://opensea.io/assets/ethereum/0xa2185B3A0d8788E007d0c9ca261F154721c2aCEA/'
 const ipfsGateway = 'https://ipfs.io/ipfs/'
 
 export const GalleryModalTile: React.FC<GalleryModalTileProps> = ({ id }) => {
