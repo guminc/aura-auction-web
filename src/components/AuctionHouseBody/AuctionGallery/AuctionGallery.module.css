@@ -68,22 +68,5 @@
 	background-image: url('/public/aura-animation-2.webp');
 	background-position: center;
 	background-size: auto 100%;
-	/* background-size: 12.5%; */
 	background-repeat: no-repeat;
-	/* mix-blend-mode: luminosity; */
-	/* animation-name: u2b-pulse;
-	animation-duration: 400ms;
-	animation-iteration-count: infinite;
-	animation-direction: alternate-reverse; */
-}
-
-@keyframes u2b-pulse {
-	from {
-		transform: scale(1) rotate(-2deg);
-		filter: blur(4px);
-	}
-	to {
-		transform: scale(1.5) rotate(2deg);
-		filter: blur(0);
-	}
 }

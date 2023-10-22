@@ -160,18 +160,20 @@
 	transform: translateX(-1px);
 }
 
-.host:nth-child(n + 5) .details-container {
-	flex-direction: row-reverse;
-	top: 0;
-	bottom: auto;
-}
+@media only screen and (min-width: 1200px) {
+	.host:nth-child(n + 5) .details-container {
+		flex-direction: row-reverse;
+		top: 0;
+		bottom: auto;
+	}
 
-.host:nth-child(n + 5) .details-container > *:first-child {
-	transform: translateX(-1px) rotate(180deg) !important;
-}
+	.host:nth-child(n + 5) .details-container > *:first-child {
+		transform: translateX(-1px) rotate(180deg) !important;
+	}
 
-.host:nth-child(n + 5) .details-container > *:last-child {
-	transform: translateX(1px) rotate(180deg) !important;
+	.host:nth-child(n + 5) .details-container > *:last-child {
+		transform: translateX(1px) rotate(180deg) !important;
+	}
 }
 
 .details {
