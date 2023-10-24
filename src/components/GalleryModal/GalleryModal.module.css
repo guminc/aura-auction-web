@@ -96,13 +96,14 @@
 	margin: 10px auto;
 	padding: 10px 20px;
 	height: var(--sp-4);
-	border-style: none;
+	border: calc(var(--bdw) / 2) solid var(--clr-ink-tr-light);
 	font-size: 0.675rem;
 	color: var(--clr-ink);
 	cursor: pointer;
 	justify-self: center;
 	align-self: center;
 	grid-column: 1 / span 2;
+	transition: var(--ix-transition-hover);
 }
 
 @media screen and (min-width: 1921px) {
@@ -118,8 +119,8 @@
 }
 
 #load-more-button:hover {
-	border: 1px solid var(--clr-ink);
-	transition: 250ms;
+	background-color: var(--clr-ink);
+	color: var(--clr-ink-on-heavy);
 }
 
 /* IS LOADING STRING --------------------- */
