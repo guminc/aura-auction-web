@@ -329,7 +329,7 @@ export const useParallelAuctionState = create<ParallelAuctionStoreState>((set, g
 		getImageForId: (id) =>
 			pipe(
 				get().getImagesUri(),
-				O.map((uri) => `${uri}/${id}.png`),
+				O.map((uri) => `${uri}/${id}.png?w=1000&h=1250`),
 				O.getOrElse(() => '/404.png')
 			),
 

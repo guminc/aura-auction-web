@@ -20,7 +20,7 @@ export const AuctionPage: React.FC = () => {
 			process.env.REACT_APP_AUCTION_CONTRACT!,
 			'AuraGamma',
 			//`${cloudflareGateway}${process.env.REACT_APP_IMAGES_URI!}`
-			'https://auragamma.nyc3.digitaloceanspaces.com/ART'
+			'https://ik.imagekit.io/auragamma'
 		)
 	}, [userConnected, auctionData, config])
 
