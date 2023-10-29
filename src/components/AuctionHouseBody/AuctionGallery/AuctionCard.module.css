@@ -152,6 +152,10 @@
 	display: flex;
 }
 
+.details-container svg * {
+	fill: var(--clr-background);
+}
+
 .details-container {
 	transform: translateY(1px);
 }

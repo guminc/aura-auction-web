@@ -79,6 +79,7 @@
 #focus-token-title-container {
 	display: flex;
 	height: var(--sp-3);
+	transform: translateY(-1px);
 }
 
 #focus-token-title-container > *:first-child {
