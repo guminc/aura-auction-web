@@ -18,8 +18,7 @@ const ipfsGateway = 'https://ipfs.io/ipfs/'
 
 export const GalleryModalTile: React.FC<GalleryModalTileProps> = ({ id }) => {
 	// FIXME Fuck cloudflare!!!!
-	//const imageUrl  = useParallelAuctionState(s => s.getImageForId(id))
-	const imageUrl = `${ipfsGateway}${process.env.REACT_APP_IMAGES_URI!}/${id}.png`
+	const imageUrl  = useParallelAuctionState(s => s.getImageForId(id))
 	const tokenName = useParallelAuctionState((s) => s.getFormattedTokenNameFoId(id))
 	const data = useGalleryStore((s) => s.getGalleryCardDataFor(id))
 
