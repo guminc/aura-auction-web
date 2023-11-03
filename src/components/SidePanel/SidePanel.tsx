@@ -72,7 +72,7 @@ export const SidePanel: React.FC = () => {
 					id={style['focus-token-image-container']}
 					style={
 						{
-							'--bg-url': `url(${lineFinished ? '/soldOut.png' : imageUrl})`
+							'--bg-url': `url(${lineFinished ? '/sold-out.jpg' : imageUrl})`
 						} as React.CSSProperties
 					}
 				>

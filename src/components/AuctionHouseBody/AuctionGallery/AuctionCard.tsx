@@ -74,7 +74,7 @@ export const AuctionCard: React.FC<AuctionCardProps> = ({ lineIndex }) => {
 			<div className={style['thumbnail-container']}>
 				<div
 					className={style['thumbnail']}
-					style={{ backgroundImage: `url(${lineFinished ? '/soldOut.png' : imageUrl})` }}
+					style={{ backgroundImage: `url(${lineFinished ? '/sold-out.jpg' : imageUrl})` }}
 				>
 					<div className={style['user-winning-string-container']}>
 						<span>{auctionStatusText}</span>
